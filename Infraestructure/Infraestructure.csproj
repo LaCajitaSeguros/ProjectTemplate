@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Command\" />
-    <Folder Include="Util\" />
     <Folder Include="Queries\" />
   </ItemGroup>
 

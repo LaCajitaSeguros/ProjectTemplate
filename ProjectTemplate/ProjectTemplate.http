@@ -1,6 +1,6 @@
-@ProjectTemplate_HostAddress = http://localhost:5003
+@Cotizaciones_HostAddress = http://localhost:5003
 
-GET {{ProjectTemplate_HostAddress}}/weatherforecast/
+GET {{Cotizaciones_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
