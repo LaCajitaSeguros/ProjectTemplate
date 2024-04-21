@@ -20,6 +20,8 @@ using Application.Interfaces.MarcaInterfaces;
 using Application.UseCase.Marca;
 using Application.Interfaces.ModeloInterfaces;
 using Application.UseCase.Modelo;
+using Application.Interfaces.Http;
+using Application.UseCase.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,9 @@ builder.Services.AddScoped<IMarcaQuery, MarcaQuery>();
 
 builder.Services.AddScoped<IModeloService, ModeloService>();
 builder.Services.AddScoped<IModeloQuery, ModeloQuery>();
+
+builder.Services.AddScoped<HttpClient, HttpClient>();
+builder.Services.AddScoped<IHttpService, HttpService>();
 
 var app = builder.Build();
 

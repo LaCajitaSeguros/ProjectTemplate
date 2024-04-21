@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.ObjetoInformacionParametrizadaInterfaces;
+﻿using Application.Interfaces.Http;
+using Application.Interfaces.ObjetoInformacionParametrizadaInterfaces;
 using Application.Interfaces.VehiculoInterfaces;
 using Application.Models;
 using Application.Response;
@@ -11,14 +12,16 @@ namespace Application.UseCase.Vehiculos
     {
         private readonly IVehiculosCommand _command;
         private readonly IObtenerInformacionParametrizada _informacionParametrizada;
+        private readonly IHttpService _httpService;
 
-        public VehiculoService(IVehiculosCommand command, IObtenerInformacionParametrizada informacionParametrizada)
+        public VehiculoService(IVehiculosCommand command, IObtenerInformacionParametrizada informacionParametrizada, IHttpService httpService)
         {
             _command = command;
             _informacionParametrizada = informacionParametrizada;
+            _httpService = httpService;
         }
 
-        public async Task<VehiculoResponse> CrearVehiculo(CrearVehiculoRequest request)
+        public async Task<List<PlanesResponse>> CotizarVehiculo(CrearVehiculoRequest request)
         {
             var objetoParametrizado = _informacionParametrizada.ObtenerInformacion(request, new ObjetoParametrizado());
             
@@ -39,10 +42,11 @@ namespace Application.UseCase.Vehiculos
 
             await _command.InsertarVehiculo(vehiculo);
 
-            return new VehiculoResponse
-            { 
-                cotizacion = CalculoCotizacion.CalcularCotizacion(objetoParametrizado)
-            };
+            var cotizacion = Convert.ToInt32(CalculoCotizacion.CalcularCotizacion(objetoParametrizado));
+
+            var response = await _httpService.GetAsync<List<PlanesResponse>>($"https://localhost:7272/api/Planes/ListaPlanesCotizados?Cotizacion={cotizacion}");
+
+            return response;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Cotizaciones.Controllers
         {
             try
             {
-                var result = await _service.CrearVehiculo(request);
+                var result = await _service.CotizarVehiculo(request);
                 return new JsonResult(result);
             }
             catch (BadRequestException ex)
