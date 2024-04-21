@@ -53,6 +53,9 @@ namespace Infraestructure.Persistence
             modelBuilder.ApplyConfiguration(new GNCConfiguracion());
             modelBuilder.ApplyConfiguration(new LocalidadConfiguracion());
             modelBuilder.ApplyConfiguration(new RangoEtarioConfiguracion());
+            modelBuilder.ApplyConfiguration(new MarcaConfiguracion());
+            modelBuilder.ApplyConfiguration(new ModeloConfiguracion());
+            modelBuilder.ApplyConfiguration(new VersionConfiguracion());
         }
 
     }
